@@ -10,5 +10,5 @@ class LoginInvalidException extends Exception
     use RenderToJson;
 
     protected $message  = 'Email and password don\'t match';
-    protected $code     = 400;
+    protected $code     = 401;
 }
