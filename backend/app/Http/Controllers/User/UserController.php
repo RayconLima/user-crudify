@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Exceptions\InternalServerException;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Exceptions\NotFoundException;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Models\User;
