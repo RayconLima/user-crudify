@@ -32,7 +32,7 @@ class LoginController extends Controller
         }
     }
 
-    private function authenticate($email, $password)
+    private function authenticate(string $email, string $password)
     {
         $user = User::where('email', $email)->first();
 
