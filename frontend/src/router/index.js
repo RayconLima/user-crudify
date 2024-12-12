@@ -12,17 +12,24 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/login',
       component: BlankLayout,
       beforeEnter: redirectIfAuthenticated,
       children: [
         {
-          path: 'login',
+          path: '',
           name: 'auth.login',
           component: Login
         },
+      ]
+    },
+    {
+      path: '/register',
+      component: BlankLayout,
+      beforeEnter: redirectIfAuthenticated,
+      children: [
         {
-          path: 'register',
+          path: '',
           name: 'auth.register',
           component: Register
         }

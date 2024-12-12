@@ -1,7 +1,6 @@
-import axios from 'axios'
 import { defineStore } from 'pinia';
 import { TOKEN_NAME } from '@/config'
-import { useMeStore } from '@/store/me';
+import { useMeStore } from '@/stores/me';
 import AuthService from '@/infra/services/auth.service'
 
 export const useAuthStore = defineStore('auth', {
