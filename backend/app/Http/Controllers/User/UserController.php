@@ -75,8 +75,6 @@ class UserController extends Controller
             return UserResource::make($user);
         } catch (NotFoundException $e) {
             throw new NotFoundException('User not found');
-        } catch (Exception $e) {
-            throw new InternalServerException($e->getMessage());
         }
     }
 

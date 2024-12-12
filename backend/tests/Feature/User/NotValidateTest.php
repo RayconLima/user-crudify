@@ -40,7 +40,7 @@ describe('validations', function () {
         $response->assertStatus(422)
             ->assertJsonValidationErrors([
                 'password' => trans(
-                    'validation.min.string', [ 'attribute' => 'password', 'min'       => 6]
+                    'validation.min.string', [ 'attribute' => 'password', 'min' => 6]
                 ),
             ]);
     });
