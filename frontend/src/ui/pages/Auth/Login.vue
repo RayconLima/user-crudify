@@ -21,7 +21,7 @@
                                 <v-col cols="12" class="pt-0">
                                     <div class="d-flex flex-wrap align-center ml-n2">
                                         <v-checkbox v-model="checkbox" color="primary" hide-details>
-                                            <template v-slot:label class="text-body-1">Lembrar deste dispositivo</template>
+                                            <template v-slot:label class="text-body-1">Lembrar-me</template>
                                         </v-checkbox>
                                         <div class="ml-sm-auto">
                                             <RouterLink to="/" class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium">Esqueceu a senha?</RouterLink>
@@ -56,6 +56,8 @@ import { useField, useForm } from 'vee-validate';
 import { object, string } from 'yup';
 import Spinner from '@/ui/components/Spinner.vue';
 import { useAuthStore } from '@/stores/auth';
+
+const appName = import.meta.env.VITE_APP_NAME
 
 const authStore = useAuthStore();
 const router = useRouter();

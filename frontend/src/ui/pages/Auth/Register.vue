@@ -32,14 +32,14 @@
                                 <v-text-field variant="outlined" type="password"  hide-details color="primary"></v-text-field>
                             </v-col>
                             <v-col cols="12" class="pt-0">
-                                <v-btn to="/" color="primary" size="large" block   flat>Sign in</v-btn>
+                                <v-btn to="/" color="primary" size="large" block flat>Cadastrar-se</v-btn>
                             </v-col>
                         </v-row>
                           <h6 class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3">
-                              Already have an Account?
+                              Você tem conta?
                                 <RouterLink :to="{name: 'auth.login'}"
                                   class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
-                                  Sign In
+                                  Entre
                                 </RouterLink>
                           </h6>
                       </v-card-item>
