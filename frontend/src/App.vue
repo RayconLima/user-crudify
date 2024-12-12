@@ -1,10 +1,6 @@
 <template>
-  <router-view />
+  <div>
+    <notifications position="top right" />
+    <router-view />
+  </div>
 </template>
-
-
-
-
-
-
-
