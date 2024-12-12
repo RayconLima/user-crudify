@@ -19,7 +19,11 @@ const router = createRouter({
         {
           path: '',
           name: 'auth.login',
-          component: Login
+          component: Login,
+          meta: {
+            title: 'Login',
+            public: true,
+          },
         },
       ]
     },
@@ -31,7 +35,11 @@ const router = createRouter({
         {
           path: '',
           name: 'auth.register',
-          component: Register
+          component: Register,
+          meta: {
+            title: 'Registro',
+            public: true,
+          },
         }
       ]
     },
@@ -43,12 +51,20 @@ const router = createRouter({
         {
           path: 'dashboard',
           name: 'dashboard',
-          component: Home
+          component: Home,
+          meta: {
+            title: 'Dashboard',
+            public: false,
+          },
         },
         {
           path: 'usuarios',
           name: 'users',
-          component: Users
+          component: Users,
+          meta: {
+            title: 'Usuários',
+            public: false,
+          },
         }
       ]
     },
@@ -62,7 +78,7 @@ router.beforeEach(async (to, from, next) => {
 
   const token = localStorage.getItem(import.meta.env.VITE_APP_TOKEN_NAME);
   if(token) {
-      await meStore.getMe(); // Aguarde a conclusão da ação getMe
+      await meStore.getMe();
   }
 
   next();
