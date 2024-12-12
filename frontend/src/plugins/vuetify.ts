@@ -2,8 +2,8 @@ import { createVuetify } from 'vuetify';
 import '@mdi/font/css/materialdesignicons.css';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
-import { PurpleTheme} from '@/theme/LightTheme';
-import { DarkTheme} from '@/theme/DarkTheme';
+import { PurpleTheme} from '@/ui/theme/LightTheme';
+import { DarkTheme} from '@/ui/theme/DarkTheme';
 
 
 export default createVuetify({

@@ -4,17 +4,17 @@ const MainRoutes = {
         requiresAuth: true
     },
     redirect: '/main',
-    component: () => import('@/layouts/full/FullLayout.vue'),
+    component: () => import('@/ui/layouts/full/FullLayout.vue'),
     children: [
         {
             name: 'Dashboard',
             path: '/',
-            component: () => import('@/views/dashboard/index.vue')
+            component: () => import('@/ui/views/dashboard/index.vue')
         },
         {
             name: 'Users',
             path: '/users',
-            component: () => import('@/views/pages/Users/Index.vue')
+            component: () => import('@/ui/views/pages/Users/Index.vue')
         },
     ]
 };

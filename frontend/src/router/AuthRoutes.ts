@@ -1,6 +1,6 @@
 const AuthRoutes = {
     path: '/auth',
-    component: () => import('@/layouts/blank/BlankLayout.vue'),
+    component: () => import('@/ui/layouts/blank/BlankLayout.vue'),
     meta: {
         requiresAuth: false
     },
@@ -8,12 +8,12 @@ const AuthRoutes = {
         {
             name: 'Login',
             path: '/login',
-            component: () => import('@/views/auth/Login.vue')
+            component: () => import('@/ui/views/auth/Login.vue')
         },
         {
             name: 'Register',
             path: '/register',
-            component: () => import('@/views/auth/Register.vue')
+            component: () => import('@/ui/views/auth/Register.vue')
         },
     ]
 };
