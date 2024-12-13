@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Exceptions\InternalServerException;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Exceptions\InternalServerException;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Jobs\newUserRegistered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Enums\UserStatus;
 use App\Models\User;
 use Exception;
 
@@ -40,8 +43,14 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         try {
+            $token  = Str::random(60);
             $input  = $request->validated();
-            $user   = User::create($input);
+            $user   = User::create([
+                ...$input,
+                'status' => UserStatus::Pending,
+                'verification_token' => $token,
+            ]);
+            newUserRegistered::dispatch($user);
             return UserResource::make($user);
         } catch (Exception $e) {
             throw new InternalServerException($e->getMessage());

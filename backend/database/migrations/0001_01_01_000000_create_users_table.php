@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->bigInteger('iti')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->enum('status', ['pending', 'active', 'inactive'])->default('pending');
+            $table->string('verification_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
