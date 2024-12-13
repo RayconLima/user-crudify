@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InvitationEmail extends Mailable implements ShouldQueue
+class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,7 +28,7 @@ class InvitationEmail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Convite para criar sua conta',
+            subject: 'Seja bem-vindo ao '. config('app.name'),
         );
     }
 
@@ -38,10 +38,7 @@ class InvitationEmail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'emails.invitation',
-            // with: [
-            //     'url' => route('verify', ['token' => $this->user->verification_token]),
-            // ],
+            view: 'emails.welcome',
         );
     }
 
