@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-breadcrumbs :items="items">
-        <template v-slot:prepend>
-          <v-icon icon="$vuetify" size="small"></v-icon>
-        </template>
+      <template v-slot:prepend>
+        <v-icon icon="$vuetify" size="small"></v-icon>
+      </template>
     </v-breadcrumbs>
 
     <v-card flat class="border mb-4">
@@ -32,17 +32,7 @@
             <td>{{ user.email }}</td>
             <td>{{ getStatus(user.status) }}</td>
             <td>
-              <v-dialog width="600px">
-                <template #activator="{ props }">
-                  <v-btn v-bind="props" variant="tonal" color="primary">Editar</v-btn>
-                </template>
-
-                <v-card>
-                  <v-card-text>
-                    Editar
-                  </v-card-text>
-                </v-card>
-              </v-dialog>
+              <EditUser :user="user" />
             </td>
           </tr>
         </tbody>
@@ -51,29 +41,30 @@
   </v-container>
 </template>
 <script setup>
-  import { ref, onMounted, computed } from 'vue'
-  import { useUsersStore } from "@/stores/users"
-  import { getStatus } from '@/utils/status';
-  import { formatITI } from '@/utils/masks';
-  import AddUser from './Create.vue';
+import { ref, onMounted, computed } from 'vue'
+import { useUsersStore } from '@/stores/users'
+import { getStatus } from '@/utils/status'
+import { formatITI } from '@/utils/masks'
+import AddUser from './Create.vue'
+import EditUser from './Edit.vue'
 
-  const users = computed(() => useUsersStore().users);
+const users = computed(() => useUsersStore().users)
 
-  onMounted(() => {
-    useUsersStore().getUsers();
-  })
+onMounted(() => {
+  useUsersStore().getUsers()
+})
 
-  const isDialogOpen = ref(false);
-  const items = ref([
-    {
-      title: 'Dashboard',
-      disabled: false,
-      to: { name: 'dashboard' },
-    },
-    {
-      title: 'Usuários',
-      disabled: false,
-      to: { name: 'users' },
-    },
-  ])
+const isDialogOpen = ref(false)
+const items = ref([
+  {
+    title: 'Dashboard',
+    disabled: false,
+    to: { name: 'dashboard' },
+  },
+  {
+    title: 'Usuários',
+    disabled: false,
+    to: { name: 'users' },
+  },
+])
 </script>
