@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 import AuthService from '@/infra/services/auth.service'
 
 export const useMeStore = defineStore('me', {
@@ -9,16 +9,16 @@ export const useMeStore = defineStore('me', {
   actions: {
     async getMe() {
       try {
-        const response  = await AuthService.getMe();
-        this.user       = await response.data
-        return this.user;
+        const response = await AuthService.getMe()
+        this.user = await response.data
+        return this.user
       } catch (error) {
-        throw error;
+        throw error
       }
-    }
+    },
   },
 
   getters: {
-    isLoggedIn: (state) => !!state.user
-  }
+    isLoggedIn: (state) => !!state.user,
+  },
 })

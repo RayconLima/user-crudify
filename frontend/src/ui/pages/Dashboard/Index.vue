@@ -9,11 +9,11 @@
 </template>
 
 <script setup>
-  const items = ref([ 
-    {
-      title: 'Dashboard',
-      disabled: false,
-      to: { name: 'dashboard' },
-    },
-  ])
+const items = ref([
+  {
+    title: 'Dashboard',
+    disabled: false,
+    to: { name: 'dashboard' },
+  },
+])
 </script>

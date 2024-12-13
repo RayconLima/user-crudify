@@ -1,13 +1,23 @@
 <template>
   <v-navigation-drawer v-model="isDrawerOpen">
-      <v-list>
-        <v-list-subheader>Menu</v-list-subheader>
-        <v-list-item prepend-icon="mdi-home"><router-link :to="{name: 'dashboard'}">Dashboard</router-link></v-list-item>
-        <v-list-item prepend-icon="mdi-account"><router-link :to="{name: 'users'}">Usuários</router-link></v-list-item>
-      </v-list>
+    <v-list>
+      <v-list-subheader>Menu</v-list-subheader>
+      <v-list-item prepend-icon="mdi-home"
+        ><router-link :to="{ name: 'dashboard' }"
+          >Dashboard</router-link
+        ></v-list-item
+      >
+      <v-list-item prepend-icon="mdi-account"
+        ><router-link :to="{ name: 'users' }"
+          >Usuários</router-link
+        ></v-list-item
+      >
+    </v-list>
   </v-navigation-drawer>
   <v-app-bar flat class="border-b" permanent>
-    <v-app-bar-nav-icon @click="isDrawerOpen = !isDrawerOpen"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon
+      @click="isDrawerOpen = !isDrawerOpen"
+    ></v-app-bar-nav-icon>
     <v-app-bar-title>{{ appName }}</v-app-bar-title>
 
     <template #append>
@@ -22,7 +32,8 @@
           <v-avatar v-bind="props">
             <v-img
               cover
-              src="https://thumbs.dreamstime.com/z/nerd-portrait-young-cheerful-businessman-smiling-36201399.jpg"></v-img>
+              src="https://thumbs.dreamstime.com/z/nerd-portrait-young-cheerful-businessman-smiling-36201399.jpg"
+            ></v-img>
           </v-avatar>
         </template>
 
@@ -42,16 +53,16 @@
   </v-app-bar>
 </template>
 <script setup>
-import { ref } from 'vue';
-import { useAuthStore } from '@/stores/auth';
-import { useRouter } from 'vue-router';
+import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 
-const router        = useRouter();
-const authStore     = useAuthStore();
-const appName       = import.meta.env.VITE_APP_NAME;
-const isDrawerOpen  = ref(false);
+const router = useRouter()
+const authStore = useAuthStore()
+const appName = import.meta.env.VITE_APP_NAME
+const isDrawerOpen = ref(false)
 
 const logout = () => {
-  authStore.logout().finally(() => router.go());
+  authStore.logout().finally(() => router.go())
 }
 </script>

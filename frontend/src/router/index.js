@@ -1,4 +1,4 @@
-import { redirectIfAuthenticated, redirectIfNotAuthenticated } from './guards';
+import { redirectIfAuthenticated, redirectIfNotAuthenticated } from './guards'
 import { createRouter, createWebHistory } from 'vue-router'
 import BlankLayout from '@/ui/layouts/BlankLayout'
 import FullLayout from '@/ui/layouts/FullLayout'
@@ -6,7 +6,7 @@ import Register from '@/ui/pages/Auth/Register'
 import Home from '@/ui/pages/Dashboard/Index'
 import Users from '@/ui/pages/Users/Index'
 import Login from '@/ui/pages/Auth/Login'
-import { useMeStore } from '@/stores/me';
+import { useMeStore } from '@/stores/me'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,7 +25,7 @@ const router = createRouter({
             public: true,
           },
         },
-      ]
+      ],
     },
     {
       path: '/register',
@@ -40,8 +40,8 @@ const router = createRouter({
             title: 'Registro',
             public: true,
           },
-        }
-      ]
+        },
+      ],
     },
     {
       path: '/admin',
@@ -65,23 +65,22 @@ const router = createRouter({
             title: 'Usuários',
             public: false,
           },
-        }
-      ]
+        },
+      ],
     },
-    
-  ]
+  ],
 })
 
 router.beforeEach(async (to, from, next) => {
-  document.title  = to.meta.title;
-  const meStore   = useMeStore();
+  document.title = to.meta.title
+  const meStore = useMeStore()
 
-  const token = localStorage.getItem(import.meta.env.VITE_APP_TOKEN_NAME);
-  if(token) {
-      await meStore.getMe();
+  const token = localStorage.getItem(import.meta.env.VITE_APP_TOKEN_NAME)
+  if (token) {
+    await meStore.getMe()
   }
 
-  next();
+  next()
 })
 
 export default router

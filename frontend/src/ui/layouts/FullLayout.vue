@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import Navigation from '@/ui/components/Navigation';
+import Navigation from '@/ui/components/Navigation'
 import AppFooter from '@/ui/components/AppFooter'
 export default {
   name: 'FullLayout',
   components: {
     Navigation,
-    AppFooter
-  }
+    AppFooter,
+  },
 }
 </script>

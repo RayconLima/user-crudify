@@ -1,12 +1,12 @@
-import { useMeStore } from '@/stores/me';
+import { useMeStore } from '@/stores/me'
 
 export const redirectIfNotAuthenticated = (to, from, next) => {
-  const meStore = useMeStore();
+  const meStore = useMeStore()
 
   if (!meStore.isLoggedIn) {
     next({ name: 'auth.login' })
   } else {
-    next();
+    next()
   }
 }
 
@@ -22,8 +22,8 @@ export const redirectIfAuthenticated = (to, from, next) => {
 
 export const checkIfTokenExists = (to, from, next) => {
   if (!to.query?.token) {
-    next({name: 'auth.login'})
+    next({ name: 'auth.login' })
   } else {
-    next();
+    next()
   }
 }

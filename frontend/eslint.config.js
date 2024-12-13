@@ -19,5 +19,14 @@ export default [
     rules: {
       'vue/multi-word-component-names': 'off',
     },
-  }
+    extends: [
+      'plugin:vue/vue3-essential',
+      'eslint:recommended',
+      '@vue/prettier', // Extende a configuração do Prettier
+    ],
+
+    parserOptions: {
+      parser: '@vue/eslint-parser',
+    },
+  },
 ]
