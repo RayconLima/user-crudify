@@ -12,25 +12,25 @@
       max-width="448"
       rounded="lg"
     >
-      <div class="text-subtitle-1 text-medium-emphasis">{{ appName }}</div>
-
+      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+        E-mail
+      </div>
       <v-text-field
         v-model="email"
         density="compact"
-        placeholder="Email address"
+        placeholder="Endereço de e-mail"
         prepend-inner-icon="mdi-email-outline"
         variant="outlined"
         :error-messages="errors.email"
       ></v-text-field>
-      <span class="text-red-500" v-if="errors.email">{{ errors.email }}</span>
 
       <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-        Password
+        Senha
         <RouterLink
           to="/"
           class="text-caption text-decoration-none text-blue"
         >
-          Forgot login password?
+          Esqueceu a senha?
         </RouterLink>
       </div>
 
@@ -39,13 +39,12 @@
         :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
         :type="visible ? 'text' : 'password'"
         density="compact"
-        placeholder="Enter your password"
+        placeholder="Entre com sua senha"
         prepend-inner-icon="mdi-lock-outline"
         variant="outlined"
         @click:append-inner="visible = !visible"
         :error-messages="errors.password"
       ></v-text-field>
-      <span class="text-red-500" v-if="errors.password">{{ errors.password }}</span>
 
       <v-btn
         class="mb-8"
@@ -57,9 +56,9 @@
       >
         <div v-if="isSubmitting" class="flex items-center justify-center">
           <Spinner :loading="isSubmitting" />
-          <span class="ml-2">Logging in...</span>
+          <span class="ml-2">Entrando...</span>
         </div>
-        <span v-else>Log In</span>
+        <span v-else>Entrar</span>
       </v-btn>
 
       <v-card-text class="text-center">
@@ -67,7 +66,7 @@
           :to="{ name: 'auth.register' }"
           class="text-blue text-decoration-none"
         >
-          Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+          Cadastrar-se agora <v-icon icon="mdi-chevron-right"></v-icon>
         </RouterLink>
       </v-card-text>
     </v-card>
