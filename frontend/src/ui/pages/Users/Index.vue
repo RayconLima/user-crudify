@@ -32,7 +32,15 @@
             <td>{{ user.email }}</td>
             <td>{{ getStatus(user.status) }}</td>
             <td>
-              <EditUser :user="user" />
+              <v-row>
+                <ShowUser :user="user" />
+                <EditUser :user="user" />
+                <v-card-title>
+                  <v-btn variant="tonal" color="red" size="small" :ripple="false" @click="destroyUser(user.id)">
+                    Excluir
+                  </v-btn>
+                </v-card-title>
+              </v-row>
             </td>
           </tr>
         </tbody>
@@ -41,15 +49,17 @@
   </v-container>
 </template>
 <script setup>
+import { notify } from '@kyvg/vue3-notification'
 import { ref, onMounted, computed } from 'vue'
 import { useUsersStore } from '@/stores/users'
 import { getStatus } from '@/utils/status'
 import { formatITI } from '@/utils/masks'
+import ShowUser from './Show.vue'
 import AddUser from './Create.vue'
 import EditUser from './Edit.vue'
 
 const users = computed(() => useUsersStore().users)
-
+const userStore = useUsersStore()
 onMounted(() => {
   useUsersStore().getUsers()
 })
@@ -67,4 +77,21 @@ const items = ref([
     to: { name: 'users' },
   },
 ])
+
+const destroyUser = async (id) => {
+  try {
+    await userStore.destroyUser(id)
+    notify({
+      title: 'Deu certo!',
+      type: 'success',
+    })
+    router.push({ name: 'users' })
+  } catch (e) {
+    notify({
+      title: 'Falha ao autenticar',
+      text: 'Falha na requisição',
+      type: 'warn',
+    })
+  }
+}
 </script>

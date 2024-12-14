@@ -1,6 +1,6 @@
 <template>
   <v-card-title>
-    <v-btn @click="openDialog" variant="tonal" color="primary" size="small" :ripple="false"
+    <v-btn @click="openDialog" variant="tonal" color="orange" size="small" :ripple="false"
       >Alterar</v-btn
     >
 

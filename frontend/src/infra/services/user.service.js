@@ -39,4 +39,17 @@ export default class UsersService extends BaseService {
         })
     })
   }
+
+  static async destroy(id) {
+    return new Promise((resolve, reject) => {
+      this.request({ auth: true })
+        .delete(`/users/${id}`)
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error.response)
+        })
+    })
+  }
 }

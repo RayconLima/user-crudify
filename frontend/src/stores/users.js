@@ -22,6 +22,10 @@ export const useUsersStore = defineStore('users', {
         return (this.users = response.data.data)
       })
     },
-    // saveUser
+    async destroyUser(id) {
+      await UsersService.destroy(id).then((response) => {
+        return (this.users = response.data.data)
+      })
+    },
   },
 })
