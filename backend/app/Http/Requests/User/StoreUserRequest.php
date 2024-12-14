@@ -25,8 +25,9 @@ class StoreUserRequest extends FormRequest
         return [
             'name'      => ['required', 'string', 'max:255'],
             'iti'       => ['required', 'numeric', 'unique:users'],
+            'profile_photo_path' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:4096'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password'  => ['required', 'string', Password::min(6)->letters()->numbers(), 'confirmed'],
+            'password'  => ['required', 'string', Password::min(6)->letters()->numbers(), 'confirmed'],
         ];
     }
 }

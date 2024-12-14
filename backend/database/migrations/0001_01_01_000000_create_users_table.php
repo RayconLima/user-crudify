@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'active', 'inactive'])->default('pending');
             $table->enum('registration_type', ['self', 'internal'])->default('self');
             $table->string('verification_token')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
