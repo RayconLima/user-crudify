@@ -17,13 +17,8 @@ export const useAuthStore = defineStore('auth', {
         this.user = response.data.data
       })
     },
-    async register({ plan_id, name, email, password }) {
-      return await AuthService.register({
-        plan_id,
-        name,
-        email,
-        password,
-      }).then((response) => {
+    async register(params) {
+      return await AuthService.register(params).then((response) => {
         const meStore = useMeStore()
         meStore.user = response.data.data
         this.user = response.data.data
