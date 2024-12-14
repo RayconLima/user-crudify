@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvitationEmail;
+use App\Mail\VerifyEmail;
 use App\Mail\WelcomeMail;
 use App\Models\User;
 
@@ -27,10 +28,18 @@ class newUserRegistered implements ShouldQueue
      */
     public function handle(): void
     {
-        if($this->user->email_verified_at == null && $this->user->status == UserStatus::Pending) {
+        // Envia e-mail de convite se a senha não estiver registrada
+        if ($this->user->registration_type == 'internal') {
             Mail::to($this->user->email)->send(new InvitationEmail($this->user));
         }
-        if($this->user->email_verified_at != null && $this->user->status == UserStatus::Active) {
+
+        // Envia e-mail de verificação se o usuário está pendente e tem um token de verificação
+        if ($this->user->registration_type == 'self') {
+            Mail::to($this->user->email)->send(new VerifyEmail($this->user));
+        }
+
+        // Envia e-mail de boas-vindas se o usuário está ativo
+        if ($this->user->status == UserStatus::Active) {
             Mail::to($this->user->email)->send(new WelcomeMail($this->user));
         }
     }
