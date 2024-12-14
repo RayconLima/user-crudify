@@ -11,7 +11,7 @@ use App\Mail\VerifyEmail;
 use App\Mail\WelcomeMail;
 use App\Models\User;
 
-class newUserRegistered implements ShouldQueue
+class NewUserRegistered implements ShouldQueue
 {
     use Queueable;
 
