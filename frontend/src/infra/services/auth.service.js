@@ -24,14 +24,28 @@ export default class AuthService extends BaseService {
     })
   }
 
-  static async register({ plan_id, name, email, password }) {
+  static async register(params) {
     return new Promise((resolve, reject) => {
       this.request()
-        .post('/register', { plan_id, name, email, password })
+        .post('/register', params)
         .then((response) => {
           resolve(response)
         })
         .catch((error) => reject(error.response))
+    })
+  }
+
+  static async verifyEmailfromToken(token) {
+    return new Promise((resolve, reject) => {
+        this.request({ auth: true })
+            .post('/verify-email', { token: token })
+            .then(response => {
+                resolve(response.data)
+            })
+            .catch(error => {
+                localStorage.removeItem(TOKEN_NAME)
+                reject(error.response)
+            })
     })
   }
 

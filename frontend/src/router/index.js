@@ -1,5 +1,6 @@
-import { redirectIfAuthenticated, redirectIfNotAuthenticated } from './guards'
+import { redirectIfAuthenticated, redirectIfNotAuthenticated, checkIfTokenExists } from './guards'
 import { createRouter, createWebHistory } from 'vue-router'
+import VerifyEmail from '@/ui/pages/Auth/VerifyEmail'
 import BlankLayout from '@/ui/layouts/BlankLayout'
 import FullLayout from '@/ui/layouts/FullLayout'
 import Register from '@/ui/pages/Auth/Register'
@@ -42,6 +43,18 @@ const router = createRouter({
             public: true,
           },
         },
+      ],
+    },
+    {
+      path: '/verificar-email',
+      component: BlankLayout,
+      beforeEnter: checkIfTokenExists,
+      children: [
+        {
+          path: '',
+          name: 'verifyEmail',
+          component: VerifyEmail
+        }
       ],
     },
     {
