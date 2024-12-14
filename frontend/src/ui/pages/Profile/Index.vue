@@ -29,7 +29,7 @@
                           :type="passwordVisible ? 'text' : 'password'"
                           hide-details
                           color="primary"
-                          append-icon="mdi-eye"
+                          :append-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
                           @click:append="togglePasswordVisibility"
                       />
                       <span class="text-red-500" v-if="errors.password">{{ errors.password }}</span>
@@ -44,7 +44,7 @@
                           :type="passwordConfirmationVisible ? 'text' : 'password'"
                           hide-details
                           color="primary"
-                          append-icon="mdi-eye"
+                          :append-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
                           @click:append="togglePasswordConfirmationVisibility"
                       />
                       <span class="text-red-500" v-if="errors.password_confirmation">{{ errors.password_confirmation }}</span>
@@ -66,10 +66,11 @@
 </template>
 
 <script setup>
+import { useNotification } from "@kyvg/vue3-notification";
+// import { notify } from '@kyvg/vue3-notification'
 import { ref, computed } from 'vue'
 import { useField, useForm } from 'vee-validate'
 import { object, string, ref as yupRef } from 'yup'
-import { notify } from '@kyvg/vue3-notification'
 import { useRouter } from 'vue-router'
 import { useMeStore } from '@/stores/me'
 import { getStatus } from '@/utils/status'
@@ -77,6 +78,7 @@ import { formatITI } from '@/utils/masks'
 import Spinner from '@/ui/components/Spinner.vue'
 
 const meStore = useMeStore()
+const notification = useNotification()
 const profile = computed(() => meStore.user)
 
 const items = ref([
@@ -111,13 +113,22 @@ const submit = handleSubmit(async (values) => {
           password_confirmation: values.password_confirmation,
       }
       await meStore.updatePassword(params)
-      notify({
-          title: 'Sucesso!',
-          type: 'success',
-      })
-      router.push({ name: 'profile' })
+        .then(() => {
+            notification.notify({
+                title: 'Sucesso!',
+                type: 'success',
+            })
+            router.push({ name: 'profile' })
+        })
+        .catch((error) => {
+            notification.notify({
+                title: ' Erro',
+                text: 'Falha na requisição',
+                type: 'warn',
+            })
+        })
   } catch (e) {
-      notify({
+      notification.notify({
           title: ' Erro',
           text: 'Falha na requisição',
           type: 'warn',
