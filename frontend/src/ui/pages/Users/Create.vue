@@ -100,12 +100,12 @@ const closeDialog = () => {
 
 const submit = handleSubmit(async (values) => {
   try {
-    const itiNumber = parseInt(values.iti.replace(/\D/g, ''), 10);
+    const itiParseNumber = parseInt(values.iti.replace(/\D/g, ''), 10);
 
     const params = {
       name: values.name,
       email: values.email,
-      iti: itiNumber,
+      iti: itiParseNumber,
     }
     await userStore.saveUser(params)
     notify({
