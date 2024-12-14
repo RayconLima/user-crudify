@@ -24,7 +24,6 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name'      => ['required', 'string', 'max:255'],
-            'password'  => ['required', 'string', 'min:6', 'confirmed', Password::min(6)->max(15)->letters()->numbers()],
         ];
     }
 }
