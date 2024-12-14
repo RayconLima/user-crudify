@@ -4,13 +4,43 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
 use App\Models\User;
 
 class MeController extends Controller
 {
-    public function __invoke()
+    public function show()
     {
         $user = User::whereId(auth()->id())->first();
         return UserResource::make($user);
+    }
+
+    public function updateProfilePhoto(Request $request)
+    {
+        $request->validate([
+            'profile_photo_path' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:4096'],
+        ]);
+
+        $user = User::whereId(auth()->id())->first();
+
+        if ($request->hasFile('profile_photo_path')) {
+            $file = $request->file('profile_photo_path');
+            $fileName = $file->getClientOriginalName();
+            $path = $file->storeAs('avatars', $fileName, 's3');
+
+            // Gera a URL pública do arquivo armazenado, incluindo a porta 9000
+            $user->profile_photo_path = $this->generateMinioUrl($path);
+        }
+
+        $user->save();
+
+        return UserResource::make($user);
+    }
+
+    private function generateMinioUrl($path)
+    {
+        // Aqui você deve ajustar a URL base conforme necessário
+        $minioUrl = config('filesystems.disks.s3.url');
+        return "{$minioUrl}/{$path}";
     }
 }

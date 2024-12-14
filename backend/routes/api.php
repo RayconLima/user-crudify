@@ -16,7 +16,8 @@ Route::post('invitation/savePassword', [InternalInvitationController::class, 'sa
 Route::post('verify-email', VerifyEmailController::class);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/me', MeController::class)->name('auth.me');
+    Route::get('/me', [MeController::class, 'show'])->name('auth.me');
+    Route::post('/me/upload-avatar', [MeController::class, 'updateProfilePhoto'])->name('auth.me.upload-avatar');
     Route::post('/me/password', PasswordController::class)->name('auth.password');
     Route::post('/logout', LogoutController::class)->name('auth.logout');
     Route::apiResource('users', UserController::class);
