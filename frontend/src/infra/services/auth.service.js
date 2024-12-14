@@ -48,4 +48,17 @@ export default class AuthService extends BaseService {
         })
     })
   }
+
+  static async updatePassword(params) {
+    return new Promise((resolve, reject) => {
+      this.request({ auth: true })
+        .post('/me/password', params)
+        .then((response) => {
+          resolve(response.data)
+        })
+        .catch((error) => {
+          reject(error.response)
+        })
+    })
+  }
 }
