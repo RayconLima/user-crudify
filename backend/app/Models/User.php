@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'status', 
         'registration_type',
         'verification_token',
+        'profile_photo_path',
     ];
 
     /**
@@ -39,6 +40,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo_path',
     ];
 
     /**
@@ -53,5 +63,12 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'status'            => UserStatus::class,
         ];
+    }
+
+    public function getProfilePhotoPathAttribute($value)
+    {
+        // Retorna a URL completa se o caminho da foto de perfil estiver definido
+        return $value ? asset($value) : null;
+
     }
 }
