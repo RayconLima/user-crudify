@@ -25,12 +25,12 @@
                       <v-text-field
                           v-model="password"
                           :error-messages="errors.password"
+                          @click:append-inner="togglePasswordVisibility"
+                          :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
                           variant="outlined"
                           :type="passwordVisible ? 'text' : 'password'"
                           hide-details
                           color="primary"
-                          :append-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
-                          @click:append="togglePasswordVisibility"
                       />
                       <span class="text-red-500" v-if="errors.password">{{ errors.password }}</span>
                   </v-col>
@@ -44,8 +44,8 @@
                           :type="passwordConfirmationVisible ? 'text' : 'password'"
                           hide-details
                           color="primary"
-                          :append-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
-                          @click:append="togglePasswordConfirmationVisibility"
+                          :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
+                          @click:append-inner="togglePasswordConfirmationVisibility"
                       />
                       <span class="text-red-500" v-if="errors.password_confirmation">{{ errors.password_confirmation }}</span>
                   </v-col>
