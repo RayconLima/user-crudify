@@ -39,9 +39,6 @@ class InvitationEmail extends Mailable implements ShouldQueue
     {
         return new Content(
             view: 'emails.invitation',
-            // with: [
-            //     'url' => route('verify', ['token' => $this->user->verification_token]),
-            // ],
         );
     }
 
