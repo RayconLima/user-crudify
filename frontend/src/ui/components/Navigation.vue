@@ -7,11 +7,11 @@
           >Dashboard</router-link
         ></v-list-item
       >
-      <v-list-item prepend-icon="mdi-account"
-        ><router-link :to="{ name: 'users' }"
-          >Usuários</router-link
-        ></v-list-item
-      >
+      <v-list-item prepend-icon="mdi-account">
+        <router-link :to="{ name: 'users' }">
+          Usuários
+        </router-link>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
   <v-app-bar flat class="border-b" permanent>
@@ -40,7 +40,11 @@
         <v-card min-width="200px">
           <v-list :lines="false" density="compact" nav>
             <v-list-item prepend-icon="mdi-account-outline">
-              <v-list-item-title>Meu perfil</v-list-item-title>
+              <v-list-item-title>
+                <router-link :to="{ name: 'profile' }">
+                  Meu Perfil
+                </router-link>
+              </v-list-item-title>
             </v-list-item>
 
             <v-list-item prepend-icon="mdi-logout" @click.prevent="logout">

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import BlankLayout from '@/ui/layouts/BlankLayout'
 import FullLayout from '@/ui/layouts/FullLayout'
 import Register from '@/ui/pages/Auth/Register'
+import Profile from '@/ui/pages/Profile/Index'
 import Home from '@/ui/pages/Dashboard/Index'
 import Users from '@/ui/pages/Users/Index'
 import Login from '@/ui/pages/Auth/Login'
@@ -63,6 +64,15 @@ const router = createRouter({
           component: Users,
           meta: {
             title: 'Usuários',
+            public: false,
+          },
+        },
+        {
+          path: 'meu-perfil',
+          name: 'profile',
+          component: Profile,
+          meta: {
+            title: 'Meu perfil',
             public: false,
           },
         },
