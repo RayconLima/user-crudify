@@ -23,6 +23,7 @@
             <v-col>
               <v-text-field
                 v-model="iti"
+                v-maska="'###.###.###-##'"
                 label="C.P.F"
                 :error-messages="errors.iti"
               />
@@ -99,10 +100,12 @@ const closeDialog = () => {
 
 const submit = handleSubmit(async (values) => {
   try {
+    const itiNumber = parseInt(values.iti.replace(/\D/g, ''), 10);
+
     const params = {
       name: values.name,
       email: values.email,
-      iti: values.iti,
+      iti: itiNumber,
     }
     await userStore.saveUser(params)
     notify({
