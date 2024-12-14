@@ -16,6 +16,14 @@ export const useMeStore = defineStore('me', {
         throw error
       }
     },
+    async updateProfilePhoto(params) {
+      try {
+        const response = await AuthService.updateProfilePhoto(params)
+        this.user = await response.data
+      } catch (error) {
+        throw error
+      }
+    },
     async updatePassword(params) {
       try {
         const response = await AuthService.updatePassword(params)

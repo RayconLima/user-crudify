@@ -75,4 +75,17 @@ export default class AuthService extends BaseService {
         })
     })
   }
+
+  static async updateProfilePhoto(params) {
+    return new Promise((resolve, reject) => {
+      this.request({ auth: true })
+        .post('/me/upload-avatar', params, {})
+        .then((response) => {
+          resolve(response.data)
+        })
+        .catch((error) => {
+          reject(error.response)
+        })
+    })
+  }
 }
