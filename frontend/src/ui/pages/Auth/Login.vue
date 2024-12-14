@@ -1,95 +1,79 @@
 <template>
-  <div class="authentication">
-    <v-container fluid class="pa-3">
-      <v-row class="h-100vh d-flex justify-center align-center">
-        <v-col cols="12" lg="4" xl="3" class="d-flex align-center">
-          <v-card
-            rounded="md"
-            elevation="10"
-            class="mx-auto mt-16"
-            max-width="500"
-          >
-            <v-card-item class="pa-sm-8">
-              <div class="text-body-1 text-muted text-center mb-3">
-                {{ appName }}
-              </div>
-              <v-form
-                @submit.stop.prevent="submit"
-                class="space-y-4 md:space-y-6"
-              >
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                  <v-text-field
-                    v-model="email"
-                    :error-messages="errors.email"
-                    variant="outlined"
-                    hide-details
-                    color="primary"
-                  ></v-text-field>
-                  <span class="text-red-500" v-if="errors.email">{{
-                    errors.email
-                  }}</span>
-                </v-col>
-                <v-col cols="12">
-                  <v-label class="font-weight-bold mb-1">Senha</v-label>
-                  <v-text-field
-                    v-model="password"
-                    :error-messages="errors.password"
-                    variant="outlined"
-                    type="password"
-                    hide-details
-                    color="primary"
-                  ></v-text-field>
-                  <span class="text-red-500" v-if="errors.password">{{
-                    errors.password
-                  }}</span>
-                </v-col>
-                <v-col cols="12" class="pt-0">
-                  <div class="d-flex flex-wrap align-center ml-n2">
-                    <v-checkbox v-model="checkbox" color="primary" hide-details>
-                      <template v-slot:label class="text-body-1"
-                        >Lembrar-me</template
-                      >
-                    </v-checkbox>
-                    <div class="ml-sm-auto">
-                      <RouterLink
-                        to="/"
-                        class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium"
-                        >Esqueceu a senha?</RouterLink
-                      >
-                    </div>
-                  </div>
-                </v-col>
-                <v-col cols="12" class="pt-0">
-                  <v-btn type="submit" color="primary" size="large" block flat>
-                    <div
-                      v-if="isSubmitting"
-                      class="flex items-center justify-center"
-                    >
-                      <Spinner :loading="isSubmitting" />
-                      <span class="ml-2">Entrando....</span>
-                    </div>
-                    <span v-else>Entrar</span>
-                  </v-btn>
-                </v-col>
-              </v-form>
-              <h6
-                class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3"
-              >
-                Novo na Modernize?
-                <RouterLink
-                  :to="{ name: 'auth.register' }"
-                  class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2"
-                  >Criar uma conta</RouterLink
-                >
-              </h6>
-            </v-card-item>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+  <div>
+    <v-img
+      class="mx-auto my-6"
+      max-width="228"
+      src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
+    ></v-img>
+
+    <v-card
+      class="mx-auto pa-12 pb-8"
+      elevation="8"
+      max-width="448"
+      rounded="lg"
+    >
+      <div class="text-subtitle-1 text-medium-emphasis">{{ appName }}</div>
+
+      <v-text-field
+        v-model="email"
+        density="compact"
+        placeholder="Email address"
+        prepend-inner-icon="mdi-email-outline"
+        variant="outlined"
+        :error-messages="errors.email"
+      ></v-text-field>
+      <span class="text-red-500" v-if="errors.email">{{ errors.email }}</span>
+
+      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+        Password
+        <RouterLink
+          to="/"
+          class="text-caption text-decoration-none text-blue"
+        >
+          Forgot login password?
+        </RouterLink>
+      </div>
+
+      <v-text-field
+        v-model="password"
+        :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+        :type="visible ? 'text' : 'password'"
+        density="compact"
+        placeholder="Enter your password"
+        prepend-inner-icon="mdi-lock-outline"
+        variant="outlined"
+        @click:append-inner="visible = !visible"
+        :error-messages="errors.password"
+      ></v-text-field>
+      <span class="text-red-500" v-if="errors.password">{{ errors.password }}</span>
+
+      <v-btn
+        class="mb-8"
+        color="blue"
+        size="large"
+        variant="tonal"
+        block
+        @click="submit"
+      >
+        <div v-if="isSubmitting" class="flex items-center justify-center">
+          <Spinner :loading="isSubmitting" />
+          <span class="ml-2">Logging in...</span>
+        </div>
+        <span v-else>Log In</span>
+      </v-btn>
+
+      <v-card-text class="text-center">
+        <RouterLink
+          :to="{ name: 'auth.register' }"
+          class="text-blue text-decoration-none"
+        >
+          Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+        </RouterLink>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
+
 <script setup>
 import { notify } from '@kyvg/vue3-notification'
 import { useRouter } from 'vue-router'
@@ -102,6 +86,7 @@ const appName = import.meta.env.VITE_APP_NAME
 
 const authStore = useAuthStore()
 const router = useRouter()
+const visible = ref(false)
 
 const schema = object({
   email: string().required().email().label('E-mail'),
@@ -120,14 +105,14 @@ const submit = handleSubmit(async (values) => {
   try {
     await authStore.login(values.email, values.password)
     notify({
-      title: 'Deu certo!',
+      title: 'Success!',
       type: 'success',
     })
     router.push({ name: 'dashboard' })
   } catch (e) {
     notify({
-      title: 'Falha ao autenticar',
-      text: 'Falha na requisição',
+      title: 'Authentication failed',
+      text: 'Request failed',
       type: 'warn',
     })
   }
