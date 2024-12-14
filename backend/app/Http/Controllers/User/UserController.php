@@ -49,6 +49,7 @@ class UserController extends Controller
                 ...$input,
                 'status' => UserStatus::Pending,
                 'verification_token' => $token,
+                'registration_type' => 'internal',
             ]);
             newUserRegistered::dispatch($user);
             return UserResource::make($user);
