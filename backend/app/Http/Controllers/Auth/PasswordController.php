@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
 class PasswordController extends Controller
@@ -17,7 +19,8 @@ class PasswordController extends Controller
         $request->user()->update([
             'password' => bcrypt($request->password),
         ]);
-        $user = auth()->user();
+        $auth = Auth::user();
+        $user = User::whereId($auth->id)->first();
         $user->password = $request->password;
         $user->save();
         

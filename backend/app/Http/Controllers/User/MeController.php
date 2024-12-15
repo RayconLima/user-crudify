@@ -6,12 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class MeController extends Controller
 {
+    public $user;
+    public function __construct()
+    {
+        $this->user = Auth::user();
+    }
     public function show()
     {
-        $user = User::whereId(auth()->id())->first();
+        $user = User::whereId($this->user->id)->first();
         return UserResource::make($user);
     }
 
@@ -21,7 +27,7 @@ class MeController extends Controller
             'profile_photo_path' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:4096'],
         ]);
 
-        $user = User::whereId(auth()->id())->first();
+        $user = User::whereId($this->user->id)->first();
 
         if ($request->hasFile('profile_photo_path')) {
             $file = $request->file('profile_photo_path');

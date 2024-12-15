@@ -30,7 +30,6 @@ class ResetPasswordController extends Controller
         $user->save();
 
         $user->resetPasswordTokens()->delete();
-
         return UserResource::make($user);
     }
 }
