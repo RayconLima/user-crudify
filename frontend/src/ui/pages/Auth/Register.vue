@@ -135,6 +135,7 @@ const submit = handleSubmit(async (values) => {
       iti: itiParseNumber,
       email: values.email,
       password: values.password,
+      password_confirmation: values.confirmPassword,
     }
     await authStore.register(params)
     notify({
