@@ -26,8 +26,6 @@ class RegisterController extends Controller
             $file = $request->file('profile_photo_path');
             $fileName = $file->getClientOriginalName();
             $path = $file->storeAs('avatars', $fileName, 's3');
-
-            // Gera a URL pública do arquivo armazenado, incluindo a porta 9000
             $user->profile_photo_path = $this->generateMinioUrl($path);
         }
 
@@ -40,7 +38,6 @@ class RegisterController extends Controller
 
     private function generateMinioUrl($path)
     {
-        // Aqui você deve ajustar a URL base conforme necessário
         $minioUrl = config('filesystems.disks.s3.url');
         return "{$minioUrl}/{$path}";
     }
