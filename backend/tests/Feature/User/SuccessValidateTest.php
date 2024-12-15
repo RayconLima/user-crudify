@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserStatus;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -68,11 +69,8 @@ describe('CRUD - Create, Read, Update and Delete', function () {
             'password_confirmation'  => 'secretPassword1',
         ];
 
-        $header = [
-            'Authorization' => "Bearer {$this->token}"
-        ];
-    
-        $response = $this->postJson(route('users.store'), $data, $header)
+
+        $response = $this->post(route('users.store'), $data, $this->header)
             ->assertStatus(201)
             ->assertJsonStructure([
                 'data' => [
@@ -80,15 +78,23 @@ describe('CRUD - Create, Read, Update and Delete', function () {
                     'iti',
                     'name',
                     'email',
+                    'status',
+                    'verification_token',
+                    'registration_type',
+                    'profile_photo_path'
                 ],
             ]);
-    
+            
         $this->assertDatabaseHas('users', [
             'id' => $response['data']['id'],
             'name' => 'John Snow',
             'email' => 'john@example.com',
             'iti' => $data['iti'],
+            'status' => UserStatus::Pending,
+            'verification_token' => $response['data']['verification_token'],
+            'registration_type' => 'internal',
         ]);
+
     });
 
     it('should return user', function () {

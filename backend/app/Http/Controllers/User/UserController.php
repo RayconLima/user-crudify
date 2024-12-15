@@ -8,7 +8,7 @@ use App\Exceptions\InternalServerException;
 use App\Exceptions\NotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Jobs\newUserRegistered;
+use App\Jobs\NewUserRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Enums\UserStatus;
@@ -51,7 +51,7 @@ class UserController extends Controller
                 'verification_token' => $token,
                 'registration_type' => 'internal',
             ]);
-            newUserRegistered::dispatch($user);
+            NewUserRegistered::dispatch($user);
             return UserResource::make($user);
         } catch (Exception $e) {
             throw new InternalServerException($e->getMessage());
