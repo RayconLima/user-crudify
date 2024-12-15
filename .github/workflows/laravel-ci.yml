@@ -18,19 +18,19 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'  # Altere para a versão do PHP que você está usando
+          php-version: '8.4.1'  
           extensions: dom, curl, mbstring, zip, sqlite
 
       - name: Install Composer dependencies
-        working-directory: ./backend  # Define o diretório de trabalho para o Laravel
+        working-directory: ./backend  
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Prepare environment
-        working-directory: ./backend  # Define o diretório de trabalho para o Laravel
+        working-directory: ./backend  
         run: |
           cp .env.example .env
           php artisan key:generate
-          php artisan migrate --env=testing  # Execute migrações se necessário
+          php artisan migrate --env=testing  
 
       - name: Run Pest tests
         working-directory: ./backend
