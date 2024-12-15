@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Enums\UserStatus;
-use App\Http\Requests\User\StoreUserRequest;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\SignUpFormRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Str;
 use App\Jobs\NewUserRegistered;
@@ -13,7 +12,7 @@ use App\Models\User;
 
 class RegisterController extends Controller
 {
-    public function __invoke(StoreUserRequest $request)
+    public function __invoke(SignUpFormRequest $request)
     {
         $input = $request->validated();
         $user = User::create([
