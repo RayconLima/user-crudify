@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\UserStatus;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -65,10 +66,13 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function getProfilePhotoPathAttribute($value)
+    public function getProfilePhotoPathAttribute($value): ?string
     {
-        // Retorna a URL completa se o caminho da foto de perfil estiver definido
         return $value ? asset($value) : null;
+    }
 
+    public function resetPasswordTokens(): HasMany
+    {
+        return $this->hasMany(UserPasswordResetToken::class);    
     }
 }

@@ -1,0 +1,1 @@
+<p>Seu token para resetar senha é: {{ $token }}</p>
