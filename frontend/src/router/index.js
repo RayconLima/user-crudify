@@ -1,4 +1,5 @@
 import { redirectIfAuthenticated, redirectIfNotAuthenticated, checkIfTokenExists } from './guards'
+import ForgotPassword from '@/ui/pages/Auth/ForgotPassword'
 import { createRouter, createWebHistory } from 'vue-router'
 import VerifyEmail from '@/ui/pages/Auth/VerifyEmail'
 import BlankLayout from '@/ui/layouts/BlankLayout'
@@ -54,6 +55,22 @@ const router = createRouter({
           path: '',
           name: 'verifyEmail',
           component: VerifyEmail
+        }
+      ],
+    },
+    {
+      path: '/esqueci-minha-senha',
+      component: BlankLayout,
+      beforeEnter: redirectIfAuthenticated,
+      meta: {
+        title: 'Esqueci minha senha',
+        public: true
+      },
+      children: [
+        {
+          path: '',
+          name: 'forgotPassword',
+          component: ForgotPassword
         }
       ],
     },
