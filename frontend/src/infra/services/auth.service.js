@@ -76,6 +76,20 @@ export default class AuthService extends BaseService {
     })
   }
 
+  static async updatePasswordByInvitation(params) {
+    console.log(params)
+    return new Promise((resolve, reject) => {
+      this.request({ auth: true })
+        .post('/invitation/savePassword', params)
+        .then((response) => {
+          resolve(response.data)
+        })
+        .catch((error) => {
+          reject(error.response)
+        })
+    })
+  }
+
   static async updateProfilePhoto(params) {
     return new Promise((resolve, reject) => {
       this.request({ auth: true })

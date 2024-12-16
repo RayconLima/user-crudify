@@ -23,6 +23,12 @@ export const useAuthStore = defineStore('auth', {
         return response
       })
     },
+    async updatePasswordByInvitation(params) {
+      return await AuthService.updatePasswordByInvitation(params).then((response) => {
+        this.user = response.data.data
+        return response
+      })
+    },
     logout() {
       return AuthService.logout().then((response) => {
         localStorage.removeItem(import.meta.env.VITE_APP_TOKEN_NAME)
