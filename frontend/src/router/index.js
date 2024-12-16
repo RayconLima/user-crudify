@@ -1,6 +1,7 @@
 import { redirectIfAuthenticated, redirectIfNotAuthenticated, checkIfTokenExists } from './guards'
 import ForgotPassword from '@/ui/pages/Auth/ForgotPassword'
 import { createRouter, createWebHistory } from 'vue-router'
+import NewPassword from '@/ui/pages/Auth/NewPassword'
 import VerifyEmail from '@/ui/pages/Auth/VerifyEmail'
 import BlankLayout from '@/ui/layouts/BlankLayout'
 import FullLayout from '@/ui/layouts/FullLayout'
@@ -9,11 +10,20 @@ import Profile from '@/ui/pages/Profile/Index'
 import Home from '@/ui/pages/Dashboard/Index'
 import Users from '@/ui/pages/Users/Index'
 import Login from '@/ui/pages/Auth/Login'
+import NotFound from '@/ui/errors/Error404'
 import { useMeStore } from '@/stores/me'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+        path: '/:pathMatch(.*)*',
+        meta: {
+          title: 'Error 404',
+          public: true
+        },
+        component: NotFound
+    },
     {
       path: '/login',
       component: BlankLayout,
@@ -71,6 +81,18 @@ const router = createRouter({
           path: '',
           name: 'forgotPassword',
           component: ForgotPassword
+        }
+      ],
+    },
+    {
+      path: '/nova-senha',
+      component: BlankLayout,
+      beforeEnter: redirectIfAuthenticated,
+      children: [
+        {
+          path: '',
+          name: 'newPassword',
+          component: NewPassword
         }
       ],
     },
