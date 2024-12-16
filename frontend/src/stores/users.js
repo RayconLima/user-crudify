@@ -5,6 +5,11 @@ export const useUsersStore = defineStore('users', {
   state: () => ({
     users: [],
   }),
+  getters: {
+    getTotalUsers: (state) => state.users.length,
+    getPendingUsers: (state) => state.users.filter((user) => user.status === "pending").length,
+    getActiveUsers: (state) => state.users.filter((user) => user.status === "active").length,
+  },
   actions: {
     getUsers() {
       return UsersService.getUsers().then((response) => {
