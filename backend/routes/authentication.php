@@ -12,5 +12,5 @@ Route::post('login', LoginController::class)->name('auth.login');
 Route::post('register', RegisterController::class)->name('auth.register');
 Route::post('invitation/savePassword', [InternalInvitationController::class, 'savePasswordByInvitation'])->name('auth.invitation');
 Route::post('verify-email', VerifyEmailController::class);
-Route::post('forgot-password', ForgotPasswordController::class);
-Route::post('reset-password', ResetPasswordController::class);
+Route::post('forgot-password', ForgotPasswordController::class)->name('auth.forgot-password');
+Route::post('reset-password', ResetPasswordController::class)->name('auth.reset-password');
