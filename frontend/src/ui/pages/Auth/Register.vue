@@ -12,6 +12,24 @@
       rounded="lg"
     >
       <v-form>
+        <v-col cols="6">
+          <v-avatar @click="triggerFileInput" class="bg-white" style="cursor: pointer;width:200px;height:200px;">
+            <v-img
+              :aspect-ratio="1"
+              :src="profileImage"
+              width="300"
+              cover
+            />
+            <input
+              type="file"
+              ref="fileInput"
+              @change="onFileChange"
+              accept="image/*"
+              style="display: none;"
+            />
+          </v-avatar>
+        </v-col>
+
         <v-text-field
           v-model="name"
           density="compact"
@@ -22,14 +40,14 @@
         />
 
         <v-text-field
-            v-model="iti"
-            v-maska="'###.###.###-##'"
-            density="compact"
-            placeholder="CPF"
-            prepend-inner-icon="mdi-card-account-details-outline"
-            variant="outlined"
-            :error-messages="errors.iti"
-          />
+          v-model="iti"
+          v-maska="'###.###.###-##'"
+          density="compact"
+          placeholder="CPF"
+          prepend-inner-icon="mdi-card-account-details-outline"
+          variant="outlined"
+          :error-messages="errors.iti"
+        />
 
         <v-text-field
           v-model="email"
@@ -104,6 +122,8 @@ const appName = import.meta.env.VITE_APP_NAME
 const authStore = useAuthStore()
 const router = useRouter()
 const visible = ref(false)
+const profileImage = ref(null)
+const selectedFile = ref(null)
 
 const schema = object({
   name: string().required().label('Nome Completo'),
@@ -127,16 +147,33 @@ const { handleSubmit, errors, isSubmitting } = useForm({
   },
 })
 
+const triggerFileInput = () => {
+  const fileInput = document.querySelector('input[type="file"]')
+  fileInput.click()
+}
+
+const onFileChange = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    profileImage.value = URL.createObjectURL(file)
+    selectedFile.value = file
+  }
+}
+
 const submit = handleSubmit(async (values) => {
+  const params = new FormData()
+  if (selectedFile.value) {
+    params.append('profile_photo_path', selectedFile.value)
+  }
+
   try {
     const itiParseNumber = parseInt(values.iti.replace(/\D/g, ''), 10);
-    const params = {
-      name: values.name,
-      iti: itiParseNumber,
-      email: values.email,
-      password: values.password,
-      password_confirmation: values.confirmPassword,
-    }
+    params.append('name', values.name)
+    params.append('iti', itiParseNumber)
+    params.append('email', values.email)
+    params.append('password', values.password)
+    params.append('password_confirmation', values.confirmPassword)
+
     await authStore.register(params)
     notify({
       title: 'Cadastro realizado com sucesso!',
