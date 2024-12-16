@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use App\Enums\UserStatus;
-use App\Jobs\newUserRegistered;
+use App\Jobs\NewUserRegistered;
 use App\Models\User;
 
 class InternalInvitationController extends Controller
@@ -19,7 +19,7 @@ class InternalInvitationController extends Controller
         try {
             $user = $this->findUserByToken($input['token']);
             $this->updateUser($user, $input);
-            newUserRegistered::dispatch($user);
+            NewUserRegistered::dispatch($user);
 
             return response()->json(['message' => 'Password updated successfully!']);
         } catch (ModelNotFoundException $e) {
