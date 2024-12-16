@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Helpers\MinioHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
@@ -35,18 +36,11 @@ class MeController extends Controller
             $path = $file->storeAs('avatars', $fileName, 's3');
 
             // Gera a URL pública do arquivo armazenado, incluindo a porta 9000
-            $user->profile_photo_path = $this->generateMinioUrl($path);
+            $user->profile_photo_path = MinioHelper::generateMinioUrl($path);
         }
 
         $user->save();
 
         return UserResource::make($user);
-    }
-
-    private function generateMinioUrl($path)
-    {
-        // Aqui você deve ajustar a URL base conforme necessário
-        $minioUrl = config('filesystems.disks.s3.url');
-        return "{$minioUrl}/{$path}";
     }
 }

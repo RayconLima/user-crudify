@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Helpers\MinioHelper;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -23,14 +25,30 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $avatarPath = $this->createAvatar();
+
         return [
             'iti'               => mt_rand(10000000000, 99999999999),
             'name'              => fake()->name(),
             'email'             => fake()->unique()->safeEmail(),
+            'profile_photo_path' => $avatarPath,
             'email_verified_at' => now(),
             'password'          => static::$password ??= Hash::make('password'),
             'remember_token'    => Str::random(10),
         ];
+    }
+
+    protected function createAvatar(): string
+    {
+        $imageUrl = "https://avatar.iran.liara.run/public";
+        $filename = Str::random(10) . '.jpg';
+
+        $path = 'avatars/' . $filename;
+
+        $imageContent = file_get_contents($imageUrl);
+        Storage::disk('s3')->put($path, $imageContent);
+
+        return MinioHelper::generateMinioUrl($path);
     }
 
     /**

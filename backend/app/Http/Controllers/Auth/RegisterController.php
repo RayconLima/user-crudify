@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Enums\UserStatus;
+use App\Helpers\MinioHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\SignUpFormRequest;
 use App\Http\Resources\UserResource;
@@ -26,7 +27,7 @@ class RegisterController extends Controller
             $file = $request->file('profile_photo_path');
             $fileName = $file->getClientOriginalName();
             $path = $file->storeAs('avatars', $fileName, 's3');
-            $user->profile_photo_path = $this->generateMinioUrl($path);
+            $user->profile_photo_path = MinioHelper::generateMinioUrl($path);;
         }
 
         $user->save();
@@ -34,11 +35,5 @@ class RegisterController extends Controller
         NewUserRegistered::dispatch($user);
 
         return UserResource::make($user);
-    }
-
-    private function generateMinioUrl($path)
-    {
-        $minioUrl = config('filesystems.disks.s3.url');
-        return "{$minioUrl}/{$path}";
     }
 }
