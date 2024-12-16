@@ -65,8 +65,6 @@ describe('CRUD - Create, Read, Update and Delete', function () {
             'name'      => 'John Snow',
             'iti'       => $this->customNumber,
             'email'     => 'john@example.com',
-            'password'  => 'secretPassword1',
-            'password_confirmation'  => 'secretPassword1',
         ];
 
 
