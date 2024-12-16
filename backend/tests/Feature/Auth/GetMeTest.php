@@ -23,5 +23,27 @@ describe('Get me', function () {
         ])
         ->assertOk();
     });
-});
 
+    it('should be change my password', function () {
+        $user   = User::factory()->create();
+        $token  = $user->createToken('auth_token')->plainTextToken;
+
+        $data = [
+            'password' => 'secretPassword1',
+            'password_confirmation' => 'secretPassword1',
+        ];
+        
+        $this->postJson(route('auth.password'), $data, [
+            'Authorization' => "Bearer {$token}"
+        ])
+        ->assertJsonStructure([
+            'data' => [
+                'id',
+                'iti',
+                'name',
+                'email',
+            ],
+        ])
+        ->assertOk();
+    });
+});
