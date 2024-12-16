@@ -12,8 +12,10 @@ use App\Jobs\NewUserRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Enums\UserStatus;
+use App\Helpers\MinioHelper;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -50,7 +52,10 @@ class UserController extends Controller
                 'status' => UserStatus::Pending,
                 'verification_token' => $token,
                 'registration_type' => 'internal',
+                'profile_photo_path' => $this->createAvatar(),
             ]);
+    
+            $user->save();
             NewUserRegistered::dispatch($user);
             return UserResource::make($user);
         } catch (Exception $e) {
@@ -98,5 +103,18 @@ class UserController extends Controller
         } catch (NotFoundException $e) {
             throw new NotFoundException('User not found');
         }
+    }
+
+    protected function createAvatar(): string
+    {
+        $imageUrl = "https://avatar.iran.liara.run/public";
+        $filename = Str::random(10) . '.jpg';
+
+        $path = 'avatars/' . $filename;
+
+        $imageContent = file_get_contents($imageUrl);
+        Storage::disk('s3')->put($path, $imageContent);
+
+        return MinioHelper::generateMinioUrl($path);
     }
 }
