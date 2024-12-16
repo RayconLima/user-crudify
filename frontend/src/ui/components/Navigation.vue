@@ -3,10 +3,10 @@
     <v-list>
       <v-list-subheader>Menu</v-list-subheader>
       <v-list-item prepend-icon="mdi-home">
-        <router-link :to="{ name: 'dashboard' }">Dashboard</router-link>
+        <router-link :to="{ name: 'dashboard' }" class="text-decoration-none text-white">Dashboard</router-link>
       </v-list-item>
       <v-list-item prepend-icon="mdi-account">
-        <router-link :to="{ name: 'users' }">Usuários</router-link>
+        <router-link :to="{ name: 'users' }" class="text-decoration-none text-white">Usuários</router-link>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -16,12 +16,6 @@
     <v-app-bar-title>{{ appName }}</v-app-bar-title>
 
     <template #append>
-      <v-btn icon class="mr-2">
-        <v-badge dot color="info">
-          <v-icon icon="mdi-bell-outline"></v-icon>
-        </v-badge>
-      </v-btn>
-
       <v-menu>
         <template #activator="{ props }">
           <v-avatar v-bind="props">
@@ -37,7 +31,7 @@
           <v-list :lines="false" density="compact" nav>
             <v-list-item prepend-icon="mdi-account-outline">
               <v-list-item-title>
-                <router-link :to="{ name: 'profile' }">Meu Perfil</router-link>
+                <router-link :to="{ name: 'profile' }" class="text-decoration-none text-white">Meu Perfil</router-link>
               </v-list-item-title>
             </v-list-item>
             <v-list-item prepend-icon="mdi-logout" @click.prevent="logout">
