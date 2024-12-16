@@ -28,6 +28,20 @@
                     Obrigado, {{ state.data.name }} por verificar seu email!
                 </h3>
             </v-card-text>
+            
+            <v-card-actions>
+                <v-btn
+                    class="mb-8"
+                    color="blue"
+                    size="large"
+                    variant="tonal"
+                    block
+                >
+                    <router-link :to="{ name: 'auth.login' }" class="text-blue text-decoration-none">
+                        Login
+                    </router-link>
+                </v-btn>
+            </v-card-actions>
         </v-card>
     </div>
 </template>
