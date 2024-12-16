@@ -12,20 +12,37 @@
         variant="outlined"
         :error-messages="errors.email"
       />
-      <v-btn
-        class="mb-8"
-        color="blue"
-        size="large"
-        variant="tonal"
-        block
-        type="submit"
-      >
-        <div v-if="isSubmitting" class="flex items-center justify-center">
-          <Spinner :loading="isSubmitting" />
-          <span class="ml-2">Enviando...</span>
-        </div>
-        <span v-else>Enviar</span>
-      </v-btn>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <v-btn
+            class="mb-8"
+            color="orange"
+            size="large"
+            variant="tonal"
+            block
+          >
+            <router-link :to="{ name: 'auth.login' }" class="text-orange text-decoration-none">
+              Voltar
+            </router-link>
+          </v-btn>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-btn
+            class="mb-8"
+            color="blue"
+            size="large"
+            variant="tonal"
+            block
+            type="submit"
+          >
+            <div v-if="isSubmitting" class="flex items-center justify-center">
+              <Spinner :loading="isSubmitting" />
+              <span class="ml-2">Enviando...</span>
+            </div>
+            <span v-else>Enviar</span>
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-form>
   </v-card-text>
 </template>
