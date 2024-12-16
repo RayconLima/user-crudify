@@ -3,6 +3,20 @@
 ## Descrição Geral
 Este projeto é um sistema de gerenciamento de usuários construído com Laravel 11 para o backend e Vue 3 para o frontend. Ele oferece funcionalidades como cadastro, login, atualização de perfil e gerenciamento de permissões de usuários.
 
+## Screenshots
+<p align="left">
+  <img src="screenshots/login.png" alt="Imagem 1" width="20%" />
+  <img src="screenshots/external-register.png" alt="Imagem 2" width="20%" />
+  <img src="screenshots/email-verified.png" alt="Imagem 3" width="20%" />
+  <img src="screenshots/new-password.png" alt="Imagem 3" width="20%" />
+</p>
+<p align="left">
+  <img src="screenshots/dashboard.png" alt="Imagem 1" width="20%" />
+  <img src="screenshots/list-users.png" alt="Imagem 2" width="20%" />
+  <img src="screenshots/my-profile.png" alt="Imagem 3" width="20%" />
+  <img src="screenshots/add-user.png" alt="Imagem 3" width="20%" />
+</p>
+
 ## Estrutura do Projeto
 backend: Contém toda a lógica do servidor, incluindo rotas, controladores, modelos e banco de dados.
 frontend: Responsável pela interface do usuário, construída com componentes Vue 3 e consumindo a API REST do backend.

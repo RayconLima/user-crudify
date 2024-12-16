@@ -10,7 +10,6 @@ Este projeto é um sistema de gerenciamento de usuários construído com Laravel
 - Docker: Ferramenta para criar, gerenciar e executar contêineres.
 - Mailtrap: Serviço de envio de e-mail.
 
-
 ## Containers
 - PHP: Serviço de desenvolvimento PHP com Apache e PHP-FPM.
 - PostgreSQL: Serviço de banco de dados relacional.
