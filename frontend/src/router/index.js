@@ -17,12 +17,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-        path: '/:pathMatch(.*)*',
-        meta: {
-          title: 'Error 404',
-          public: true
-        },
-        component: NotFound
+      path: '/:pathMatch(.*)*',
+      component: NotFound,
+      meta: {
+        title: 'Error 404',
+        public: true
+      },
     },
     {
       path: '/login',
@@ -64,7 +64,11 @@ const router = createRouter({
         {
           path: '',
           name: 'verifyEmail',
-          component: VerifyEmail
+          component: VerifyEmail,
+          meta: {
+            title: 'E-mail verificado',
+            public: false,
+          },
         }
       ],
     },
@@ -80,7 +84,11 @@ const router = createRouter({
         {
           path: '',
           name: 'forgotPassword',
-          component: ForgotPassword
+          component: ForgotPassword,
+          meta: {
+            title: 'Esqueci minha senha',
+            public: false,
+          },
         }
       ],
     },
@@ -92,7 +100,11 @@ const router = createRouter({
         {
           path: '',
           name: 'newPassword',
-          component: NewPassword
+          component: NewPassword,
+          meta: {
+            title: 'Nova senha',
+            public: false,
+          },
         }
       ],
     },
@@ -136,6 +148,12 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   document.title = to.meta.title
   const meStore = useMeStore()
+
+  console.log(to.path)
+  if (to.path === '/') {
+    next({ name: 'auth.login' })
+    return
+  }
 
   const token = localStorage.getItem(import.meta.env.VITE_APP_TOKEN_NAME)
   if (token) {
